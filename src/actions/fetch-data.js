@@ -18,7 +18,7 @@ export  function fetchData(dates) {
 
 	return { // return plain object with props
 		type: 'FETCH_DATA', // Action Type
-		payload: request // Action Payload (cargo)
+		payload: request // Action Payload 
 	};
 
 }
