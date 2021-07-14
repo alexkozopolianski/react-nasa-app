@@ -1,48 +1,46 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import {fetchData} from '../actions/fetch-data';
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { fetchData } from "../store/actions/fetchData";
 
+const Search = (props) => {
+  const [term, setTerm] = useState("");
 
+  const onInputChange = (e) => {
+    setTerm(e.target.value);
+  };
 
-class Search extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = { term: ''};
+  const onFormSubmit = (event) => {
+    event.preventDefault();
+    props.fetchData(term);
+    setTerm("");
+  };
 
-        this.onInputChange = this.onInputChange.bind(this);
-        this.onFormSubmit = this.onFormSubmit.bind(this);
-    }
+  return (
+    <div className="search">
+      <div className="form-group mb-2">
+        <form onSubmit={onFormSubmit} className="form-inline">
+          <div className="form-group mx-sm-3 mb-2">
+            <input
+              className="form-control"
+              placeholder="YYYY-MM-DD"
+              value={term}
+              onChange={onInputChange}
+            />
+          </div>
+          <span>
+            <button type="submit" className="btn btn-primary mb-2">
+              Подтвердить
+            </button>
+          </span>
+        </form>
+      </div>
+    </div>
+  );
+};
 
-    onInputChange(event){
-        this.setState({term: event.target.value});
-    }
-
-    onFormSubmit(event){
-        event.preventDefault();
-        this.props.fetchData(this.state.term);
-        this.setState({ term:''})
-    }
-    render(){
-        return(
-            <form onSubmit={this.onFormSubmit} >
-                <input
-                placeholder="YYYY-MM-DD"
-                value={this.state.term}
-                onChange={this.onInputChange} />
-                <span>
-                    <button type="submit">Submit</button>
-                </span>
-                
-            </form>
-            
-        )
-    }
+function mapDispatchToProps(dispath) {
+  return bindActionCreators({ fetchData }, dispath);
 }
 
-function mapDispatchToProps(dispath){
-    return bindActionCreators({fetchData}, dispath);
-}
-
-export default connect(null,mapDispatchToProps)(Search)
-
+export default connect(null, mapDispatchToProps)(Search);
