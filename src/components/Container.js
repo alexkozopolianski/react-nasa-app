@@ -6,7 +6,7 @@ import { fetchData } from "../store/actions/fetchData";
 const AstronomyContainer = (props) => {
   useEffect(() => {
     props.fetchData();
-  });
+  }, []);
 
   return <AstronomyCard data={props.astronomy} />;
 };

@@ -6,10 +6,6 @@ import { fetchData } from "../store/actions/fetchData";
 const Search = (props) => {
   const [term, setTerm] = useState("");
 
-  const onInputChange = (e) => {
-    setTerm(e.target.value);
-  };
-
   const onFormSubmit = (event) => {
     event.preventDefault();
     props.fetchData(term);
@@ -25,7 +21,7 @@ const Search = (props) => {
               className="form-control"
               placeholder="YYYY-MM-DD"
               value={term}
-              onChange={onInputChange}
+              onChange={(e) => setTerm(e.target.value)}
             />
           </div>
           <span>
